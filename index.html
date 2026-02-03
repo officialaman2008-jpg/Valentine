@@ -5,183 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>For Lily 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box;font-family:'Poppins',system-ui}
+body{
+margin:0;height:100vh;overflow:hidden;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-body {
-  margin: 0;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
-  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
-  background-size: 400% 400%;
-  animation: bg 12s ease infinite;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.hearts span{
+position:absolute;bottom:-10px;font-size:18px;
+animation:float 10s linear infinite;opacity:.6
+}
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
 }
 
-@keyframes bg {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+.card{
+background:#fff;padding:28px 22px;border-radius:20px;
+width:90%;max-width:360px;text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,.15)
 }
-
-.card {
-  background:white;
-  border-radius:24px;
-  padding:24px;
-  text-align:center;
-  width:90%;
-  max-width:360px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
+h1{color:#ff4d6d;font-size:22px;margin-bottom:16px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+button{
+border:none;padding:12px 20px;border-radius:14px;
+font-size:16px;cursor:pointer;transition:.2s
 }
+.yes{background:#2ecc71;color:#fff}
+.no{background:#ff6b6b;color:#fff;position:relative}
 
-h1 {
-  font-family:'Pacifico',cursive;
-  color:#ff4d6d;
-  font-size:28px;
+.popup{
+position:fixed;inset:0;background:rgba(0,0,0,.5);
+display:flex;align-items:center;justify-content:center
 }
-
-.cat {
-  font-size:64px;
-  animation: bounce 1.5s infinite;
+.popup .box{
+background:#fff;padding:26px;border-radius:20px;
+width:90%;max-width:420px;text-align:center
 }
+.hidden{display:none}
 
-@keyframes bounce {
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-.buttons {
-  margin-top:20px;
-  position:relative;
-  height:120px;
-}
-
-button {
-  border:none;
-  padding:14px 22px;
-  border-radius:14px;
-  font-size:18px;
-  cursor:pointer;
-}
-
-.yes { background:#2ecc71; color:white; }
-.no { background:#ff6b6b; color:white; position:absolute; }
-
-.footer {
-  position:fixed;
-  bottom:10px;
-  right:10px;
-  font-size:12px;
-  opacity:.6;
+.credit{
+position:fixed;bottom:8px;right:10px;
+font-size:12px;color:#fff;opacity:.85
 }
 </style>
 </head>
 
 <body>
 
-<div class="card" id="app"></div>
+<div class="hearts">
+<span style="left:10%">💗</span><span style="left:25%">💖</span>
+<span style="left:40%">💘</span><span style="left:55%">💞</span>
+<span style="left:70%">💕</span><span style="left:85%">💓</span>
+</div>
 
-<div class="footer">made with 💖 by your beloved aman</div>
+<!-- LANGUAGE -->
+<div class="card" id="lang">
+<h1>Choose your language 💕</h1>
+<div class="btns">
+<button class="yes" onclick="setLang('en')">English</button>
+<button class="yes" onclick="setLang('id')">Indonesia</button>
+</div>
+</div>
 
-<audio id="music1" src="intro.mp3" preload="auto"></audio>
-<audio id="music2" src="love.mp3" preload="auto"></audio>
+<!-- QUESTION -->
+<div class="card hidden" id="main">
+<h1 id="q"></h1>
+<div class="btns">
+<button class="yes" id="yes">Yes 💘</button>
+<button class="no" id="no">No 🥺</button>
+</div>
+</div>
+
+<!-- LETTER -->
+<div class="popup hidden" id="letter">
+<div class="box">
+<h2>I love you so much 💖</h2>
+<p id="letterText"></p>
+<button class="yes" onclick="final()">OK</button>
+</div>
+</div>
+
+<!-- FINAL -->
+<div class="popup hidden" id="final">
+<div class="box">
+<h2>💞 Happy Valentine’s Day 💞</h2>
+<p>You are my forever, Lily.</p>
+</div>
+</div>
+
+<div class="credit">made with ❤️ by your beloved aman</div>
 
 <script>
-const text = {
-  en: {
-    choose: "Choose your language 💕",
-    valentine: "Will you be my Valentine, Lily?",
-    yes: "Yes 💘",
-    no: "No 😢",
-    tease: "Hey hey 😏<br>That was fast!<br>Make me chase you a little 💕",
-    final: "I Love You, Lily!!! ❤️",
-    finalSub: "You light up my world like no one else."
-  },
-  id: {
-    choose: "Pilih bahasa kamu 💕",
-    valentine: "Maukah kamu jadi Valentine-ku, Lily?",
-    yes: "Iya 💘",
-    no: "Tidak 😢",
-    tease: "Eh eh 😏<br>Cepat banget!<br>Godain aku dulu dong 💕",
-    final: "Aku Cinta Kamu, Lily!!! ❤️",
-    finalSub: "Kamu menerangi duniaku seperti tak ada yang lain."
-  }
+let lang="en",grow=1;
+const text={
+en:{
+q:"Will you be my Valentine, Lily?",
+l:"You are my joy, my forever. Every moment with you is precious. Will you be the love of my life forever?"
+},
+id:{
+q:"Maukah kamu jadi Valentine-ku, Lily?",
+l:"Kamu adalah kebahagiaanku dan selamanya. Setiap momen bersamamu sangat berarti. Maukah kamu menjadi cintaku selamanya?"
+}
 };
 
-let lang = "en";
-let teaseCount = 0;
-let started = false;
-
-const app = document.getElementById("app");
-const music1 = document.getElementById("music1");
-const music2 = document.getElementById("music2");
-
-function languageScreen(){
-  app.innerHTML = `
-    <h1>${text.en.choose}</h1>
-    <div class="buttons">
-      <button class="yes" onclick="setLang('en')">English 🇬🇧</button><br><br>
-      <button class="yes" onclick="setLang('id')">Indonesia 🇮🇩</button>
-    </div>
-  `;
-}
-
 function setLang(l){
-  lang = l;
-  mainScreen();
+lang=l;
+document.getElementById("lang").classList.add("hidden");
+document.getElementById("main").classList.remove("hidden");
+document.getElementById("q").innerText=text[lang].q;
 }
 
-function mainScreen(){
-  app.innerHTML = `
-    <div class="cat">🐱💕</div>
-    <h1>${text[lang].valentine}</h1>
-    <div class="buttons">
-      <button class="yes" id="yes">${text[lang].yes}</button>
-      <button class="no" id="no">${text[lang].no}</button>
-    </div>
-  `;
+const no=document.getElementById("no");
+no.addEventListener("mouseenter",run);
+no.addEventListener("touchstart",run);
 
-  const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-
-  function moveNo(){
-    noBtn.style.left = Math.random()*200+"px";
-    noBtn.style.top = Math.random()*80+"px";
-  }
-
-  noBtn.addEventListener("touchstart",moveNo);
-  noBtn.addEventListener("mouseover",moveNo);
-
-  yesBtn.onclick = ()=>{
-    if(!started){
-      music1.play();
-      started = true;
-    }
-    teaseCount++;
-    if(teaseCount < 2){
-      alert(text[lang].tease.replace(/<br>/g,"\n"));
-    } else {
-      finalScreen();
-    }
-  };
+function run(){
+const x=Math.random()*120-60;
+const y=Math.random()*120-60;
+no.style.transform=`translate(${x}px,${y}px)`;
+grow+=.15;
+document.getElementById("yes").style.transform=`scale(${grow})`;
 }
 
-function finalScreen(){
-  music1.pause();
-  music2.play();
-  app.innerHTML = `
-    <div class="cat">🐱💞</div>
-    <h1>${text[lang].final}</h1>
-    <p>${text[lang].finalSub}</p>
-  `;
-}
+document.getElementById("yes").onclick=()=>{
+document.getElementById("letterText").innerText=text[lang].l;
+document.getElementById("letter").classList.remove("hidden");
+};
 
-languageScreen();
+function final(){
+document.getElementById("letter").classList.add("hidden");
+document.getElementById("final").classList.remove("hidden");
+}
 </script>
 
 </body>
