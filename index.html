@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For You ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 20px;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      position: absolute;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      width: 300px;
+    }
+
+    .gift {
+      background: #ff4d6d;
+      color: white;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button id="yesBtn">YES 💘</button>
+  <button id="noBtn">NO 😜</button>
+</div>
+
+<div class="popup" id="giftPopup">
+  <div class="popup-content" id="popupContent">
+    <h2>Choose Your Gift 🎁</h2>
+    <div class="gift" onclick="gift1()">Gift 1</div>
+    <div class="gift" onclick="gift2()">Gift 2</div>
+    <div class="gift" onclick="gift3()">Gift 3</div>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const popup = document.getElementById("giftPopup");
+  let yesSize = 1;
+
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 300 - 150;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+    yesSize += 0.2;
+    yesBtn.style.transform = `scale(${yesSize})`;
+  });
+
+  yesBtn.addEventListener("click", () => {
+    popup.style.display = "flex";
+  });
+
+  function gift1() {
+    document.getElementById("popupContent").innerHTML = `
+      <h2>Gift 1 💝</h2>
+      <p>Dinner date + unlimited hugs + forehead kisses 🥰</p>
+    `;
+  }
+
+  function gift2() {
+    document.getElementById("popupContent").innerHTML = `
+      <h2>My Love Letter 💌</h2>
+      <p>
+        From the moment you came into my life, everything felt warmer,
+        brighter, and happier. I’m so grateful for you, today and always ❤️
+      </p>
+    `;
+  }
+
+  function gift3() {
+    document.getElementById("popupContent").innerHTML = `
+      <h1 style="color:#ff4d6d; font-size:40px;">
+        HAPPY VALENTINE 💖🥰✨
+      </h1>
+    `;
+  }
+</script>
+
+</body>
+</html>
