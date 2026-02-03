@@ -1,89 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For You ❤️</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
-      font-family: Arial, sans-serif;
-      text-align: center;
-      height: 100vh;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Lily 💖</title>
 
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    h1 {
-      color: #ff4d6d;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Arial", sans-serif;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffc3a0, #ffdde1);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 20px;
-      transition: all 0.3s ease;
-    }
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    #yesBtn {
-      background-color: #ff4d6d;
-      color: white;
-    }
+.heart {
+  position: absolute;
+  color: rgba(255, 77, 109, 0.6);
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
 
-    #noBtn {
-      background-color: #ccc;
-      position: absolute;
-    }
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
 
-    .popup {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 2;
+}
 
-    .popup-content {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      width: 300px;
-    }
+h1 {
+  color: #ff4d6d;
+}
 
-    .gift {
-      background: #ff4d6d;
-      color: white;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  </style>
+.cats {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.cats img {
+  width: 80px;
+}
+
+.buttons {
+  position: relative;
+  height: 120px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 14px 26px;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #ddd;
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translateX(-50%);
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.popup-box {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.gift {
+  background: #ff4d6d;
+  color: white;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.back {
+  margin-top: 15px;
+  background: #ccc;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>Will you be my Valentine? 💖</h1>
-  <button id="yesBtn">YES 💘</button>
-  <button id="noBtn">NO 😜</button>
+<div class="card">
+  <h1>Will you be my Valentine, Lily? 💖</h1>
+
+  <div class="cats">
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+    <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif">
+  </div>
+
+  <div class="buttons">
+    <button id="yes">YES 💘</button>
+    <button id="no">NO 😜</button>
+  </div>
 </div>
 
-<div class="popup" id="giftPopup">
-  <div class="popup-content" id="popupContent">
-    <h2>Choose Your Gift 🎁</h2>
+<div class="popup" id="popup">
+  <div class="popup-box" id="popupBox">
+    <h2>Choose your gift 🎁</h2>
     <div class="gift" onclick="gift1()">Gift 1</div>
     <div class="gift" onclick="gift2()">Gift 2</div>
     <div class="gift" onclick="gift3()">Gift 3</div>
@@ -91,48 +163,72 @@
 </div>
 
 <script>
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const popup = document.getElementById("giftPopup");
-  let yesSize = 1;
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const popup = document.getElementById("popup");
+const popupBox = document.getElementById("popupBox");
 
-  noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * 300 - 150;
-    const y = Math.random() * 300 - 150;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+let scale = 1;
 
-    yesSize += 0.2;
-    yesBtn.style.transform = `scale(${yesSize})`;
-  });
+noBtn.addEventListener("mouseenter", () => {
+  const x = Math.random() * 160 - 80;
+  const y = Math.random() * 60;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-  yesBtn.addEventListener("click", () => {
-    popup.style.display = "flex";
-  });
+  scale = Math.min(scale + 0.12, 2);
+  yesBtn.style.transform = `scale(${scale})`;
+});
 
-  function gift1() {
-    document.getElementById("popupContent").innerHTML = `
-      <h2>Gift 1 💝</h2>
-      <p>Dinner date + unlimited hugs + forehead kisses 🥰</p>
-    `;
-  }
+yesBtn.onclick = () => {
+  popup.style.display = "flex";
+};
 
-  function gift2() {
-    document.getElementById("popupContent").innerHTML = `
-      <h2>My Love Letter 💌</h2>
-      <p>
-        From the moment you came into my life, everything felt warmer,
-        brighter, and happier. I’m so grateful for you, today and always ❤️
-      </p>
-    `;
-  }
+function back() {
+  popupBox.innerHTML = `
+    <h2>Choose your gift 🎁</h2>
+    <div class="gift" onclick="gift1()">Gift 1</div>
+    <div class="gift" onclick="gift2()">Gift 2</div>
+    <div class="gift" onclick="gift3()">Gift 3</div>
+  `;
+}
 
-  function gift3() {
-    document.getElementById("popupContent").innerHTML = `
-      <h1 style="color:#ff4d6d; font-size:40px;">
-        HAPPY VALENTINE 💖🥰✨
-      </h1>
-    `;
-  }
+function gift1() {
+  popupBox.innerHTML = `
+    <h2>Gift 1 💝</h2>
+    <p>A cute date, laughs, and unlimited hugs 🥰</p>
+    <button class="back" onclick="back()">Back</button>
+  `;
+}
+
+function gift2() {
+  popupBox.innerHTML = `
+    <h2>Love Letter 💌</h2>
+    <p>
+      Lily, you make everything brighter just by being you.
+      I’m really grateful for you and I love you ❤️
+    </p>
+    <button class="back" onclick="back()">Back</button>
+  `;
+}
+
+function gift3() {
+  popupBox.innerHTML = `
+    <h1 style="color:#ff4d6d;">HAPPY VALENTINE 💖🥰✨</h1>
+    <button class="back" onclick="back()">Back</button>
+  `;
+}
+
+// floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
 </script>
 
 </body>
