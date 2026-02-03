@@ -1,146 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 <title>For Lily 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;font-family:'Poppins',system-ui}
+*{box-sizing:border-box;font-family:'Comic Sans MS', cursive;}
 body{
-margin:0;height:100vh;overflow:hidden;
-display:flex;align-items:center;justify-content:center;
-background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
-background-size:400% 400%;
-animation:bg 12s ease infinite;
+  margin:0;height:100vh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
 }
-@keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
 .hearts span{
-position:absolute;bottom:-10px;font-size:18px;
-animation:float 10s linear infinite;opacity:.6
+  position:absolute;bottom:-20px;
+  font-size:20px;opacity:.7;
+  animation:float 8s linear infinite;
 }
 @keyframes float{
-0%{transform:translateY(0)}
-100%{transform:translateY(-120vh)}
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-120vh)}
 }
 
-.card{
-background:#fff;padding:28px 22px;border-radius:20px;
-width:90%;max-width:360px;text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,.15)
+.center{
+  text-align:center;color:#ff2e63;
+  z-index:2;padding:20px;
 }
-h1{color:#ff4d6d;font-size:22px;margin-bottom:16px}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+h1{font-size:38px;margin:10px 0}
 button{
-border:none;padding:12px 20px;border-radius:14px;
-font-size:16px;cursor:pointer;transition:.2s
+  padding:12px 26px;
+  border:none;border-radius:16px;
+  font-size:18px;cursor:pointer;
+  margin:10px;background:#ffe0ec;
 }
-.yes{background:#2ecc71;color:#fff}
-.no{background:#ff6b6b;color:#fff;position:relative}
+#yesBtn{transition:.3s}
+#noBtn{position:relative}
+
+.gif{width:150px;margin-bottom:10px}
 
 .popup{
-position:fixed;inset:0;background:rgba(0,0,0,.5);
-display:flex;align-items:center;justify-content:center
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
 }
-.popup .box{
-background:#fff;padding:26px;border-radius:20px;
-width:90%;max-width:420px;text-align:center
+.popupBox{
+  background:white;padding:25px;
+  border-radius:20px;text-align:center;
 }
 .hidden{display:none}
 
-.credit{
-position:fixed;bottom:8px;right:10px;
-font-size:12px;color:#fff;opacity:.85
+.letterBox{
+  background:rgba(255,255,255,.85);
+  padding:25px;border-radius:20px;
+  max-width:520px;margin:auto;
 }
+.subtitle{font-size:18px;color:#444}
 </style>
 </head>
 
 <body>
 
-<div class="hearts">
-<span style="left:10%">💗</span><span style="left:25%">💖</span>
-<span style="left:40%">💘</span><span style="left:55%">💞</span>
-<span style="left:70%">💕</span><span style="left:85%">💓</span>
+<div class="hearts"></div>
+
+<div class="center" id="screen">
+  <img class="gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <h1 id="text">Will you be my Valentine, Lily?</h1>
+  <div>
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😢</button>
+  </div>
 </div>
 
-<!-- LANGUAGE -->
-<div class="card" id="lang">
-<h1>Choose your language 💕</h1>
-<div class="btns">
-<button class="yes" onclick="setLang('en')">English</button>
-<button class="yes" onclick="setLang('id')">Indonesia</button>
+<div class="popup hidden" id="popup">
+  <div class="popupBox">
+    <p>That was really fast, Lily 😳💖<br>Let me make you run for it a bit~</p>
+    <button onclick="closePopup()">Okay 😆</button>
+  </div>
 </div>
-</div>
-
-<!-- QUESTION -->
-<div class="card hidden" id="main">
-<h1 id="q"></h1>
-<div class="btns">
-<button class="yes" id="yes">Yes 💘</button>
-<button class="no" id="no">No 🥺</button>
-</div>
-</div>
-
-<!-- LETTER -->
-<div class="popup hidden" id="letter">
-<div class="box">
-<h2>I love you so much 💖</h2>
-<p id="letterText"></p>
-<button class="yes" onclick="final()">OK</button>
-</div>
-</div>
-
-<!-- FINAL -->
-<div class="popup hidden" id="final">
-<div class="box">
-<h2>💞 Happy Valentine’s Day 💞</h2>
-<p>You are my forever, Lily.</p>
-</div>
-</div>
-
-<div class="credit">made with ❤️ by your beloved aman</div>
 
 <script>
-let lang="en",grow=1;
-const text={
-en:{
-q:"Will you be my Valentine, Lily?",
-l:"You are my joy, my forever. Every moment with you is precious. Will you be the love of my life forever?"
-},
-id:{
-q:"Maukah kamu jadi Valentine-ku, Lily?",
-l:"Kamu adalah kebahagiaanku dan selamanya. Setiap momen bersamamu sangat berarti. Maukah kamu menjadi cintaku selamanya?"
-}
+/* floating hearts */
+const emojis=["❤️","💖","💕","💘","😍"];
+setInterval(()=>{
+  const h=document.createElement("span");
+  h.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=6+Math.random()*4+"s";
+  document.querySelector(".hearts").appendChild(h);
+  setTimeout(()=>h.remove(),9000);
+},300);
+
+let firstYes=true;
+const yes=document.getElementById("yesBtn");
+const no=document.getElementById("noBtn");
+
+yes.onclick=()=>{
+  if(firstYes){
+    document.getElementById("popup").classList.remove("hidden");
+    firstYes=false;
+  }else{
+    showLetter();
+  }
 };
 
-function setLang(l){
-lang=l;
-document.getElementById("lang").classList.add("hidden");
-document.getElementById("main").classList.remove("hidden");
-document.getElementById("q").innerText=text[lang].q;
-}
-
-const no=document.getElementById("no");
-no.addEventListener("mouseenter",run);
-no.addEventListener("touchstart",run);
-
-function run(){
-const x=Math.random()*120-60;
-const y=Math.random()*120-60;
-no.style.transform=`translate(${x}px,${y}px)`;
-grow+=.15;
-document.getElementById("yes").style.transform=`scale(${grow})`;
-}
-
-document.getElementById("yes").onclick=()=>{
-document.getElementById("letterText").innerText=text[lang].l;
-document.getElementById("letter").classList.remove("hidden");
+no.onmouseover=()=>{
+  no.style.position="absolute";
+  no.style.left=Math.random()*80+"%";
+  no.style.top=Math.random()*80+"%";
+  yes.style.transform="scale(1.15)";
 };
 
-function final(){
-document.getElementById("letter").classList.add("hidden");
-document.getElementById("final").classList.remove("hidden");
+function closePopup(){
+  document.getElementById("popup").classList.add("hidden");
+}
+
+function showLetter(){
+  document.getElementById("screen").innerHTML=`
+    <img class="gif" src="https://media.giphy.com/media/6SUW4Nw5XrWGQ/giphy.gif">
+    <h1>I Love You!!!</h1>
+    <p class="subtitle">You're the love of my life.</p>
+    <div class="letterBox">
+      <p>
+      Dear Lily,<br><br>
+      From the moment you came into my life, everything started feeling warmer and brighter.
+      Your smile, your presence, and the way you make even small moments special
+      mean more to me than I can ever explain.<br><br>
+      This little page was just a playful way of saying something real.
+      I’m so grateful for you, and I’d be the happiest person to call you my Valentine —
+      today and always.<br><br>
+      With all my heart,<br>
+      <b>Aman 💖</b>
+      </p>
+    </div>
+  `;
 }
 </script>
 
